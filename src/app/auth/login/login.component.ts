@@ -36,6 +36,7 @@ export class LoginComponent {
     const subscribe = this.authService.login(this.loginForm.value)
       .subscribe((res) => {
         localStorage.setItem('token', res.token);
+        localStorage.setItem('user', JSON.stringify(res));
         this.router.navigate(['/main']);
       })
 

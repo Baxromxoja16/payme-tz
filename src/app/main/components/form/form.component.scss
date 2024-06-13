@@ -1,0 +1,18 @@
+form {
+  max-width: 400px;
+  margin: 20px auto;
+}
+
+.checkout {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+button[type="submit"] {
+  width: 100%;
+}
+
+mat-form-field {
+  width: 100%;
+}
