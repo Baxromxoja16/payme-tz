@@ -5,4 +5,6 @@ export interface User {
 
 export interface ResponseToken {
   token: string
+  user_id: number
+  username: string
 }

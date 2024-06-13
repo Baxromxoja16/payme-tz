@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { MaterialsModule } from '../../core/materials.module';
 import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from "@angular/forms";
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +17,8 @@ export class LoginComponent {
   subscription: Subscription = new Subscription()
 
   constructor(
-    private formBuilder: FormBuilder) { }
+    private formBuilder: FormBuilder,
+    private authService: AuthService) { }
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
@@ -29,6 +31,12 @@ export class LoginComponent {
     if (this.loginForm.invalid) {
       return;
     }
+    const subscribe = this.authService.login(this.loginForm.value)
+      .subscribe((res) => {
+        console.log(res);
+      })
+
+    this.subscription.add(subscribe);
   }
 
   ngOnDestroy(): void {
