@@ -66,16 +66,18 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "proxyConfig": "src/proxy.conf.json"
+          },
           "configurations": {
             "production": {
-              "buildTarget": "payme-tz:build:production"
-            },
+              "buildTarget": "payme-tz:build:production",
+              "proxyConfig": "src/proxy.conf.json"
+          },
             "development": {
               "buildTarget": "payme-tz:build:development"
             }
           },
-          "browserTarget": "payme-tz:build",
-          "proxyConfig": "src/proxy.conf.json",
           "defaultConfiguration": "development"
         },
         "extract-i18n": {
