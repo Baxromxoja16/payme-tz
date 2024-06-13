@@ -13,7 +13,6 @@ import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from "@angula
 export class LoginComponent {
   loginForm!: FormGroup;
   emailRegex = new RegExp(/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/)
-  errorMessage = '';
   subscription: Subscription = new Subscription()
 
   constructor(
