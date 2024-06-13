@@ -3,6 +3,7 @@ import { Subscription } from 'rxjs';
 import { MaterialsModule } from '../../core/materials.module';
 import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from "@angular/forms";
 import { AuthService } from '../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +19,8 @@ export class LoginComponent {
 
   constructor(
     private formBuilder: FormBuilder,
-    private authService: AuthService) { }
+    private authService: AuthService,
+    private router: Router) { }
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
@@ -33,7 +35,8 @@ export class LoginComponent {
     }
     const subscribe = this.authService.login(this.loginForm.value)
       .subscribe((res) => {
-        console.log(res);
+        localStorage.setItem('token', res.token);
+        this.router.navigate(['/todo']);
       })
 
     this.subscription.add(subscribe);
