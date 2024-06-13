@@ -74,6 +74,8 @@
               "buildTarget": "payme-tz:build:development"
             }
           },
+          "browserTarget": "payme-tz:build",
+          "proxyConfig": "src/proxy.conf.json",
           "defaultConfiguration": "development"
         },
         "extract-i18n": {
