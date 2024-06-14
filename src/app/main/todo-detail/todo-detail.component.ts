@@ -13,9 +13,10 @@ import { TodoService } from '../services/todo.service';
   templateUrl: './todo-detail.component.html',
   styleUrl: './todo-detail.component.scss'
 })
-export class TodoDetailComponent implements OnDestroy{
+export class TodoDetailComponent implements OnDestroy {
   item: WritableSignal<UserModel> = this.todoService.detailUser;
   subscription: Subscription = new Subscription();
+  isLoading = false;
 
   constructor(
     private router: Router,
@@ -23,8 +24,10 @@ export class TodoDetailComponent implements OnDestroy{
 
   ngOnInit(): void {
     let id = this.router.routerState.snapshot.url.split('/')[3];
-
-    const subscribe = this.todoService.getDetailTodo(id).subscribe();
+    this.isLoading = true;
+    const subscribe = this.todoService.getDetailTodo(id).subscribe(
+      () => this.isLoading = false
+    );
     this.subscription.add(subscribe);
   }
 
