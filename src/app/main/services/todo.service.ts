@@ -43,7 +43,14 @@ export class TodoService {
   }
 
   deleteTodo(id: string) {
-    return this.http.delete(this.baseUrl + '/' + id);
+    return this.http.delete(this.baseUrl + '/' + id).pipe(
+      tap(() => {
+        let idIndex = this.listOfUsers().results.findIndex((list) => list.id === id);
+        this.listOfUsers().results.splice(idIndex, 1);
+      },
+        catchError((err) => this.errorHandle.handleError(err))
+      )
+    );
   }
 
 }

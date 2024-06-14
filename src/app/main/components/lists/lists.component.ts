@@ -28,6 +28,11 @@ export class ListsComponent implements OnDestroy, OnInit {
     this.todoService.todoChanged.next(user);
   }
 
+  deleteTodo(user: UserModel) {
+    const subscribe = this.todoService.deleteTodo(user.id).subscribe();
+    this.subscription.add(subscribe);
+  }
+
   ngOnDestroy(): void {
     this.subscription.unsubscribe()
   }
