@@ -12,6 +12,7 @@ export class TodoService {
   token = localStorage.getItem('token');
   todoChanged = new Subject<UserModel>();
   listOfUsers: WritableSignal<ListOfUsers> = signal<ListOfUsers>({} as ListOfUsers);
+  detailUser: WritableSignal<UserModel> = signal<UserModel>({} as UserModel)
 
   constructor(
     private http: HttpClient,
@@ -27,7 +28,10 @@ export class TodoService {
   }
 
   getDetailTodo(id: string) {
-    return this.http.get<UserModel>(this.baseUrl + '/' + id);
+    return this.http.get<UserModel>(this.baseUrl + '/' + id).pipe(
+      tap((res) => this.detailUser.set(res)),
+      catchError((err) => this.errorHandle.handleError(err))
+    );
   }
 
   createTodo(data: UserModel) {
