@@ -10,7 +10,7 @@ import { ListOfUsers, UserModel } from '../models/user.model';
 export class TodoService {
   baseUrl = '/api/todo'
   token = localStorage.getItem('token');
-  todoChanged = new Subject<UserModel[]>();
+  todoChanged = new Subject<UserModel>();
   listOfUsers: WritableSignal<ListOfUsers> = signal<ListOfUsers>({} as ListOfUsers);
 
   constructor(

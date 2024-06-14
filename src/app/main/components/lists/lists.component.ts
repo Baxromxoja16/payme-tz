@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit, WritableSignal} from '@angular/core';
 import { MaterialsModule } from '../../../core/materials.module';
 import { Subscription } from 'rxjs';
 import { TodoService } from '../../services/todo.service';
-import { ListOfUsers } from '../../models/user.model';
+import { ListOfUsers, UserModel } from '../../models/user.model';
 
 @Component({
   selector: 'app-lists',
@@ -22,6 +22,10 @@ export class ListsComponent implements OnDestroy, OnInit {
     const subscribe = this.todoService.getTodos().subscribe();
 
     this.subscription.add(subscribe);
+  }
+
+  editTodo(user: UserModel) {
+    this.todoService.todoChanged.next(user);
   }
 
   ngOnDestroy(): void {

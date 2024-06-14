@@ -17,7 +17,7 @@ import { ErrorHandlingService } from '../../../core/services/error-handling.serv
 export class FormComponent {
   todoForm!: FormGroup;
   errorMessage = ''
-  todoChanged: UserModel[] = []
+  todoChanged: UserModel = {} as UserModel;
   editMode = false;
   subscription: Subscription = new Subscription();
 
@@ -27,11 +27,11 @@ export class FormComponent {
     private errorHandle: ErrorHandlingService) { }
 
   ngOnInit() {
-    const subscribe = this.todoService.todoChanged.subscribe((data: UserModel[]) => {
+    const subscribe = this.todoService.todoChanged.subscribe((data: UserModel) => {
       this.todoChanged = data
       this.editMode = true
       this.initForm()
-    }, (err: Error) => this.errorHandle.handleError(err))
+    })
     this.subscription.add(subscribe);
     this.initForm()
   }
@@ -42,7 +42,7 @@ export class FormComponent {
     const todoData = this.todoForm.value;
 
     if (this.editMode) {
-      const subscribe = this.todoService.editTodo(this.todoChanged[0].id, todoData).subscribe(() => this.initForm())
+      const subscribe = this.todoService.editTodo(this.todoChanged.id, todoData).subscribe(() => this.initForm())
       this.subscription.add(subscribe)
     } else {
       const subscribe = this.todoService.createTodo(todoData).subscribe(() => this.initForm())
@@ -61,8 +61,8 @@ export class FormComponent {
     let user: number | undefined = userData.user_id;
 
     if (this.editMode) {
-      title = this.todoChanged[0].title;
-      completed = this.todoChanged[0].completed;
+      title = this.todoChanged.title;
+      completed = this.todoChanged.completed;
     }
 
     this.todoForm = this.formBuilder.group({

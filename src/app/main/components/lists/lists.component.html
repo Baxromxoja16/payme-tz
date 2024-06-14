@@ -12,7 +12,7 @@
           <!-- <p><strong>Updated: </strong> At: {{ item.updated_at | date }}</p> -->
           <p><strong>User: </strong> {{ item.user }}</p>
           <div class="buttons">
-            <button mat-raised-button color="primary">Edit</button>
+            <button mat-raised-button color="primary" (click)="editTodo(item)">Edit</button>
             <button mat-raised-button color="warn">Delete</button>
             <button mat-raised-button color="accent">Detail</button>
           </div>
