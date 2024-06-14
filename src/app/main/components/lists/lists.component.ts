@@ -1,8 +1,9 @@
-import { Component, OnDestroy, OnInit, WritableSignal} from '@angular/core';
+import { Component, OnDestroy, OnInit, WritableSignal } from '@angular/core';
 import { MaterialsModule } from '../../../core/materials.module';
 import { Subscription } from 'rxjs';
 import { TodoService } from '../../services/todo.service';
 import { ListOfUsers, UserModel } from '../../models/user.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-lists',
@@ -16,7 +17,8 @@ export class ListsComponent implements OnDestroy, OnInit {
   subscription: Subscription = new Subscription()
 
   constructor(
-    private todoService: TodoService) { }
+    private todoService: TodoService,
+    private router: Router) { }
 
   ngOnInit(): void {
     const subscribe = this.todoService.getTodos().subscribe();
@@ -31,6 +33,10 @@ export class ListsComponent implements OnDestroy, OnInit {
   deleteTodo(user: UserModel) {
     const subscribe = this.todoService.deleteTodo(user.id).subscribe();
     this.subscription.add(subscribe);
+  }
+
+  detailsTodo(user: UserModel) {
+    this.router.navigate(['main/detail/' + user.id]);
   }
 
   ngOnDestroy(): void {
