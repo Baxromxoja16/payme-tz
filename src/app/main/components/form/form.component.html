@@ -1,0 +1,23 @@
+<form [formGroup]="todoForm" (ngSubmit)="onSubmit()">
+  <mat-form-field class="example-full-width">
+    <mat-label>Title:</mat-label>
+    <input
+      matInput
+      id="title"
+      placeholder="Enter todo title"
+      formControlName="title"
+      value="Sushi"
+    />
+  </mat-form-field>
+
+  @if (todoForm.get('title')?.errors?.['required'] &&
+  todoForm.get('title')?.invalid && (todoForm.get('title')?.dirty ||
+  todoForm.get('title')?.touched)) {
+  <mat-error>Title is required.</mat-error>
+  }
+  <section class="example-section checkout">
+    <mat-checkbox class="example-margin" id="completed"  formControlName="completed" >Completed</mat-checkbox>
+  </section>
+
+  <button mat-raised-button color="primary" type="submit">Submit</button>
+</form>
