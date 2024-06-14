@@ -1,6 +1,6 @@
 <div class="list-container">
-  <h2>List Title</h2>
-  <ul>
+  <h2>Todo tasks</h2>
+  <div class="cards">
     @for (item of listOfUsers().results; track $index) {
       <mat-card class="card">
         <mat-card-header>
@@ -19,5 +19,5 @@
         </mat-card-content>
       </mat-card>
     }
-  </ul>
+  </div>
 </div>
