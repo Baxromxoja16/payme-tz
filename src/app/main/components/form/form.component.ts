@@ -37,27 +37,15 @@ export class FormComponent {
   }
 
   onSubmit() {
-    if (this.todoForm.invalid) {
-      return;
-    }
+    if (this.todoForm.invalid) return;
 
     const todoData = this.todoForm.value;
-    console.log(todoData);
 
     if (this.editMode) {
-      const subscribe = this.todoService.editTodo(this.todoChanged[0].id, todoData).subscribe(() => {
-        this.initForm()
-      },
-        (err: Error) => this.errorHandle.handleError(err)
-      )
-
+      const subscribe = this.todoService.editTodo(this.todoChanged[0].id, todoData).subscribe(() => this.initForm())
       this.subscription.add(subscribe)
     } else {
-      const subscribe = this.todoService.createTodo(todoData).subscribe(() => {
-        this.initForm()
-      },
-        (err: Error) => this.errorHandle.handleError(err)
-      )
+      const subscribe = this.todoService.createTodo(todoData).subscribe(() => this.initForm())
       this.subscription.add(subscribe)
     }
   }

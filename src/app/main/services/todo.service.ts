@@ -31,11 +31,15 @@ export class TodoService {
   }
 
   createTodo(data: UserModel) {
-    return this.http.post(this.baseUrl, data);
+    return this.http.post(this.baseUrl, data).pipe(
+      catchError((err) => this.errorHandle.handleError(err))
+    );
   }
 
   editTodo(id: string, data: UserModel) {
-    return this.http.put(this.baseUrl + '/' + id, data);
+    return this.http.put(this.baseUrl + '/' + id, data).pipe(
+      catchError((err) => this.errorHandle.handleError(err))
+    );
   }
 
   deleteTodo(id: string) {
