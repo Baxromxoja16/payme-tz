@@ -1,1 +1,23 @@
-<p>lists works!</p>
+<div class="list-container">
+  <h2>List Title</h2>
+  <ul>
+    @for (item of listOfUsers().results; track $index) {
+      <mat-card class="card">
+        <mat-card-header>
+          <mat-card-title>Title: {{ item.title }}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p><strong>Completed: </strong> {{ item.completed }}</p>
+          <!-- <p><strong>Created: </strong> At: {{ item.created_at | date }}</p> -->
+          <!-- <p><strong>Updated: </strong> At: {{ item.updated_at | date }}</p> -->
+          <p><strong>User: </strong> {{ item.user }}</p>
+          <div class="buttons">
+            <button mat-raised-button color="primary">Edit</button>
+            <button mat-raised-button color="warn">Delete</button>
+            <button mat-raised-button color="accent">Detail</button>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    }
+  </ul>
+</div>

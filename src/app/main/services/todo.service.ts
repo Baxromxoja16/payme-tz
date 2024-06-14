@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Injectable, signal, WritableSignal } from '@angular/core';
+import { Subject, tap } from 'rxjs';
 import { ListOfUsers, UserModel } from '../models/user.model';
 
 @Injectable({
@@ -10,11 +10,16 @@ export class TodoService {
   baseUrl = '/api/todo'
   token = localStorage.getItem('token');
   todoChanged = new Subject<UserModel[]>();
+  listOfUsers: WritableSignal<ListOfUsers> = signal<ListOfUsers>({} as ListOfUsers);
 
   constructor(private http: HttpClient) { }
 
   getTodos() {
-    return this.http.get<ListOfUsers>(this.baseUrl);
+    return this.http.get<ListOfUsers>(this.baseUrl).pipe(
+      tap((list) => {
+        this.listOfUsers.set(list);
+      })
+    );
   }
 
   getDetailTodo(id: string) {
