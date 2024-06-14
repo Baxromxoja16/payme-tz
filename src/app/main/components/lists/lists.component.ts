@@ -14,14 +14,18 @@ import { Router } from '@angular/router';
 })
 export class ListsComponent implements OnDestroy, OnInit {
   listOfUsers: WritableSignal<ListOfUsers> = this.todoService.listOfUsers;
-  subscription: Subscription = new Subscription()
+  subscription: Subscription = new Subscription();
+  isLoading = false;
 
   constructor(
     private todoService: TodoService,
     private router: Router) { }
 
   ngOnInit(): void {
-    const subscribe = this.todoService.getTodos().subscribe();
+    this.isLoading = true
+    const subscribe = this.todoService.getTodos().subscribe(
+      () => this.isLoading = false
+    );
 
     this.subscription.add(subscribe);
   }

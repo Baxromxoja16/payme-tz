@@ -1,23 +1,29 @@
 <div class="list-container">
   <h2>Todo tasks</h2>
   <div class="cards">
-    @for (item of listOfUsers().results; track $index) {
-      <mat-card class="card">
-        <mat-card-header>
-          <mat-card-title>Title: {{ item.title }}</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-          <p><strong>Completed: </strong> {{ item.completed }}</p>
-          <!-- <p><strong>Created: </strong> At: {{ item.created_at | date }}</p> -->
-          <!-- <p><strong>Updated: </strong> At: {{ item.updated_at | date }}</p> -->
-          <p><strong>User: </strong> {{ item.user }}</p>
-          <div class="buttons">
-            <button mat-raised-button color="primary" (click)="editTodo(item)">Edit</button>
-            <button mat-raised-button color="warn" (click)="deleteTodo(item)">Delete</button>
-            <button mat-raised-button color="accent" (click)="detailsTodo(item)">Detail</button>
-          </div>
-        </mat-card-content>
-      </mat-card>
+    @if (!isLoading) {
+      @for (item of listOfUsers().results; track $index) {
+        <mat-card class="card">
+          <mat-card-header>
+            <mat-card-title>Title: {{ item.title }}</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <p><strong>Completed: </strong> {{ item.completed }}</p>
+            <!-- <p><strong>Created: </strong> At: {{ item.created_at | date }}</p> -->
+            <!-- <p><strong>Updated: </strong> At: {{ item.updated_at | date }}</p> -->
+            <p><strong>User: </strong> {{ item.user }}</p>
+            <div class="buttons">
+              <button mat-raised-button color="primary" (click)="editTodo(item)">Edit</button>
+              <button mat-raised-button color="warn" (click)="deleteTodo(item)">Delete</button>
+              <button mat-raised-button color="accent" (click)="detailsTodo(item)">Detail</button>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      }
+    } @else {
+      <div class="loader">
+        <mat-spinner></mat-spinner>
+      </div>
     }
   </div>
 </div>
