@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, signal, WritableSignal } from '@angular/core';
-import { Subject, tap } from 'rxjs';
+import { Subject, tap, catchError } from 'rxjs';
+import { ErrorHandlingService } from '../../core/services/error-handling.service';
 import { ListOfUsers, UserModel } from '../models/user.model';
 
 @Injectable({
@@ -12,13 +13,16 @@ export class TodoService {
   todoChanged = new Subject<UserModel[]>();
   listOfUsers: WritableSignal<ListOfUsers> = signal<ListOfUsers>({} as ListOfUsers);
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private errorHandle: ErrorHandlingService) { }
 
   getTodos() {
     return this.http.get<ListOfUsers>(this.baseUrl).pipe(
       tap((list) => {
         this.listOfUsers.set(list);
-      })
+      }),
+      catchError((err) => this.errorHandle.handleError(err))
     );
   }
 
