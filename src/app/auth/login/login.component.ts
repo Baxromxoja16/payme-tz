@@ -15,7 +15,8 @@ import { Router } from '@angular/router';
 export class LoginComponent {
   loginForm!: FormGroup;
   emailRegex = new RegExp(/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/)
-  subscription: Subscription = new Subscription()
+  subscription: Subscription = new Subscription();
+  isLoading = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -33,12 +34,16 @@ export class LoginComponent {
     if (this.loginForm.invalid) {
       return;
     }
+    this.isLoading = true;
     const subscribe = this.authService.login(this.loginForm.value)
       .subscribe((res) => {
+        this.isLoading = false;
         localStorage.setItem('token', res.token);
         localStorage.setItem('user', JSON.stringify(res));
         this.router.navigate(['/main']);
-      })
+      },
+        () => this.isLoading = false
+      )
 
     this.subscription.add(subscribe);
   }
