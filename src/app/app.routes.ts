@@ -6,10 +6,10 @@ export const routes: Routes = [
     path: '', redirectTo: 'auth', pathMatch: 'full',
   },
   {
-    path: 'auth', loadComponent:() => import('./auth/login/login.component').then((m) => m.LoginComponent),
+    path: 'auth', loadChildren:() => import('./auth/auth.routes').then((m) => m.Auth_Routes),
   },
   {
-    path: 'main', canActivate: [loginGuard] , loadComponent:() => import('./main/todo/todo.component').then((m) => m.TodoComponent),
+    path: 'main', canActivate: [loginGuard], loadChildren:() => import('./main/main.routes').then((m) => m.Main_Routes),
   },
   {
     path: '**', redirectTo: 'login', pathMatch: 'full',
