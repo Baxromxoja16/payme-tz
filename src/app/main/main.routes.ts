@@ -5,9 +5,9 @@ import { TodoComponent } from './todo/todo.component';
 
 
 export const Main_Routes: Route[] = [
-  // {
-  //   path: '', redirectTo: 'lists', pathMatch: 'full',
-  // },
+  {
+    path: '', redirectTo: 'lists', pathMatch: 'full',
+  },
   {
     path: '',
     component: TodoComponent,
